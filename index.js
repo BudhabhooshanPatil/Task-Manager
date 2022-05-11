@@ -1,7 +1,7 @@
 const express = require("express")
 const logger = require('morgan');
-const tasks = require("./app/routes/tasks")
-const connectDB = require("./app/config/db_connection").connect
+const tasks = require("./app/routes/task.route")
+const connectDB = require("./app/config/db.connection").connect
 
 // app
 const app = express();

@@ -1,4 +1,4 @@
-module.exports = class Task {
+class Task {
     
     static select = 'SELECT * FROM Tasks';
     static create = 'INSERT INTO Tasks SET ?';
@@ -11,5 +11,7 @@ module.exports = class Task {
         this.task_description = description;
         this.task_timestamp = timestamp;
         this.task_complete = isComplete;
-    } Í
+    }
 }
+
+module.exports = Task
