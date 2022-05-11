@@ -1,18 +1,18 @@
 const connection = require("../config/db_connection").connection;
-var uuid = require('uuid');
-var Task = require('../models/task');
+const uuid = require('uuid');
+const Task = require('../models/task');
 
 // get all task
 const getAllTasks = async function (request, response) {
     connection.query(Task.select, function (error, results, fields) {
         if (error) {
-            response.status(400).send(`${error.code}`)
+            return response.status(400).send(`${error.code}`)
         } else {
             const tasks = results.map(function (element) {
                 const task = new Task(element.task_uuid, element.task_description, element.task_timestamp, element.task_complete);
                 return task
             });
-            response.status(200).send({ 'data': { 'tasks': tasks } })
+            return response.status(200).send({ 'data': { 'tasks': tasks } })
         }
     });
 }
