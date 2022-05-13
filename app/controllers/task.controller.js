@@ -6,7 +6,7 @@ const Task = require('../models/task.model');
 const getAllTasks = async function (request, response) {
     connection.query(Task.select, function (error, results, fields) {
         if (error) {
-            return response.status(400).send(`${error.code}`)
+            return response.status(400).send({ 'error': error.message })
         } else {
             const tasks = results.map(function (element) {
                 const task = new Task(element.task_uuid, element.task_description, element.task_timestamp, element.task_complete);
@@ -35,7 +35,7 @@ const createNewTask = async function (request, response) {
 
         connection.query(sql, data, function (error, results, fields) {
             if (error) {
-                return response.status(400).send(`${error.code}`)
+                return response.status(400).send({ 'error': error.message })
             } else {
                 if (results.affectedRows > 0) {
                     return response.status(201).send({ 'data': { 'task': task } })
@@ -56,7 +56,7 @@ const getOneTasks = function (request, response) {
         const uuid = request.params.id
         connection.query(Task.find, [uuid], async function (error, results, fields) {
             if (error) {
-                return response.status(400).send(`${error.code}`)
+                return response.status(400).send({ 'error': error.message })
             } else {
                 if (results.length > 0) {
                     const tasks = results.map(function (element) {
@@ -85,7 +85,7 @@ const updateTask = function (request, response) {
         let data = [description, complete, uuid];
         connection.query(sql, data, async function (error, results, fields) {
             if (error) {
-                return response.status(400).send(`${error.code}`)
+                return response.status(400).send({ 'error': error.message })
             } else {
                 if (results.affectedRows > 0) {
                     connection.query(Task.find, [uuid], async function (error, results, fields) {
@@ -117,7 +117,7 @@ const deleteTask = function (request, response) {
         let sql = Task.delete
         connection.query(sql, [uuid], async function (error, results, fields) {
             if (error) {
-                return response.status(400).send(`${error.code}`)
+                return response.status(400).send(`${error.message}`)
             } else {
                 if (results.affectedRows != 0) {
                     const task = new Task(uuid);

@@ -1,7 +1,7 @@
 const express = require("express")
 const logger = require('morgan');
 const tasks = require("./app/routes/task.route")
-const connectDB = require("./app/config/db.connection").connect
+const dbConnection = require("./app/config/db.connection").connect
 
 // app
 const app = express();
@@ -19,16 +19,16 @@ app.use("/api/v1/tasks", tasks);
 const port = 3000;
 
 // start
-const start = async () => {
-    try {
-        await connectDB()
-        // set port, listen for requests
-        app.listen(port, () => {
-            console.log(`server is running on port ${port}.`);
-        });
-    } catch (error) {
-        console.log(`error ${error}...`)
-    }
+const start = () => {
+    dbConnection(error => {
+        if (error) {
+            console.log(`database connection error => ${error}`)
+        } else {
+            app.listen(port, () => {
+                console.log(`server is running on port => ${port}.`);
+            });
+        }
+    })
 }
 
 start();

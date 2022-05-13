@@ -1,10 +1,10 @@
 class Task {
     
-    static select = 'SELECT * FROM Tasks';
-    static create = 'INSERT INTO Tasks SET ?';
-    static find = 'SELECT * FROM Tasks WHERE task_uuid = ?';
-    static update = 'UPDATE Tasks SET task_description = ?,task_complete = ? WHERE task_uuid = ?';
-    static delete = 'DELETE FROM Tasks WHERE task_uuid = ?';
+    static select = 'SELECT * FROM tasks';
+    static create = 'INSERT INTO tasks SET ?';
+    static find = 'SELECT * FROM tasks WHERE task_uuid = ?';
+    static update = 'UPDATE tasks SET task_description = ?,task_complete = ? WHERE task_uuid = ?';
+    static delete = 'DELETE FROM tasks WHERE task_uuid = ?';
 
     constructor(uuid, description, timestamp, isComplete) {
         this.task_uuid = uuid;
